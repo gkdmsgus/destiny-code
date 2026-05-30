@@ -1,0 +1,25 @@
+{
+  "name": "destiny-code",
+  "version": "1.0.0",
+  "description": "사주를 RPG 캐릭터로 변환하는 웹 서비스",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "html-to-image": "^1.11.13",
+    "lunar-javascript": "^1.7.7",
+    "openai": "^6.39.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DestinyCode - 나의 RPG 운명</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-badge">Destiny Code · 사주 RPG</div>
+      <h1>당신의 사주,<br><span class="highlight">RPG 캐릭터</span>로</h1>
+      <p class="subtitle">생년월일로 풀어내는 나의 타고난 운명 캐릭터</p>
+      <div class="header-divider"><span>⚔</span></div>
+    </header>
+
+    <!-- 입력 폼 -->
+    <section class="form-section" id="formSection">
+      <form id="birthForm">
+
+        <!-- 양력/음력 토글 -->
+        <div class="cal-toggle">
+          <button type="button" class="cal-btn active" id="btnSolar" data-cal="solar">양력</button>
+          <button type="button" class="cal-btn" id="btnLunar" data-cal="lunar">음력</button>
+        </div>
+
+        <!-- 윤달 (음력 선택 시만 노출) -->
+        <div class="form-row hidden" id="leapRow">
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="isLeap" /> 윤달 여부
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthYear">출생 연도</label>
+            <input type="number" id="birthYear" placeholder="예: 1995" min="1900" max="2024" required />
+          </div>
+          <div class="form-group">
+            <label for="birthMonth">월</label>
+            <input type="number" id="birthMonth" placeholder="1~12" min="1" max="12" required />
+          </div>
+          <div class="form-group">
+            <label for="birthDay">일</label>
+            <input type="number" id="birthDay" placeholder="1~31" min="1" max="31" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthHour">출생 시 <span class="optional">(선택)</span></label>
+            <input type="number" id="birthHour" placeholder="0~23" min="0" max="23" />
+          </div>
+          <div class="form-group hidden" id="minuteGroup">
+            <label for="birthMinute">분 <span class="optional">(선택)</span></label>
+            <input type="number" id="birthMinute" placeholder="0~59" min="0" max="59" />
+          </div>
+          <div class="form-group">
+            <label for="gender">성별 <span class="optional">(선택)</span></label>
+            <select id="gender">
+              <option value="">선택 안함</option>
+              <option value="남성">남성</option>
+              <option value="여성">여성</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-generate" id="generateBtn">
+          ✨ 나의 운명 캐릭터 생성
+        </button>
+      </form>
+    </section>
+
+    <!-- 로딩 -->
+    <section class="loading-section hidden" id="loadingSection">
+      <div class="loading-orb">
+        <div class="loading-spinner"></div>
+      </div>
+      <p class="loading-text" id="loadingText">생년월일 해석 중...</p>
+      <p class="loading-sub">이미지 생성으로 최대 30초 소요될 수 있습니다</p>
+    </section>
+
+    <!-- 결과 카드 -->
+    <section class="result-section hidden" id="resultSection">
+      <div class="character-card">
+        <div class="card-image-area" id="cardImageArea">
+          <div class="img-skeleton" id="imgSkeleton">
+            <span class="skeleton-icon">🎨</span>
+            <span class="skeleton-text">이미지 생성 중...</span>
+          </div>
+          <img id="characterImage" src="" alt="캐릭터 이미지" style="display:none" />
+        </div>
+        <div class="card-info">
+          <div class="character-header">
+            <h2 id="characterName"></h2>
+            <span class="class-badge" id="characterClass"></span>
+          </div>
+          <p class="destiny-text" id="characterDestiny"></p>
+
+          <div class="stats-section">
+            <h3>스탯</h3>
+            <div class="radar-wrap">
+              <canvas id="radarChart"></canvas>
+            </div>
+            <div class="stats-grid" id="statsGrid"></div>
+          </div>
+
+          <div class="skills-section">
+            <h3>스킬</h3>
+            <div class="skills-list" id="skillsList"></div>
+          </div>
+
+          <div class="personality-section">
+            <h3>성격</h3>
+            <p id="characterPersonality"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 대운 카드 -->
+      <div class="fortune-card hidden" id="fortuneCard">
+        <div class="fortune-header">
+          <h3>대운 (大運)</h3>
+          <span class="fortune-subtitle" id="fortuneSubtitle"></span>
+        </div>
+        <div class="fortune-list" id="fortuneList"></div>
+      </div>
+
+      <!-- 액션 버튼 -->
+      <div class="result-actions">
+        <button class="btn-share" id="shareBtn">📷 카드 저장</button>
+        <button class="btn-retry" id="retryBtn">↩ 다시 생성하기</button>
+      </div>
+    </section>
+
+    <!-- 에러 -->
+    <section class="error-section hidden" id="errorSection">
+      <p id="errorMessage"></p>
+      <button class="btn-retry" id="errorRetryBtn">다시 시도</button>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/html-to-image@1.11.13/dist/html-to-image.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
