@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DestinyCode - 나의 RPG 운명</title>
+  <!-- OG 메타 (공유 시 미리보기) -->
+  <meta property="og:title"       content="DestinyCode — 나의 사주 RPG 캐릭터" />
+  <meta property="og:description" content="생년월일로 나만의 RPG 캐릭터를 만들어보세요!" />
+  <meta property="og:type"        content="website" />
+  <meta name="twitter:card"       content="summary_large_image" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -15,29 +20,28 @@
       <div class="header-divider"><span>⚔</span></div>
     </header>
 
-    <!-- 입력 폼 -->
+    <!-- 모드 토글 -->
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="character">🧙 내 캐릭터</button>
+      <button class="mode-btn"        data-mode="compat">💕 궁합</button>
+    </div>
+
+    <!-- ── 캐릭터 생성 폼 ── -->
     <section class="form-section" id="formSection">
       <form id="birthForm">
-
-        <!-- 양력/음력 토글 -->
         <div class="cal-toggle">
           <button type="button" class="cal-btn active" id="btnSolar" data-cal="solar">양력</button>
-          <button type="button" class="cal-btn" id="btnLunar" data-cal="lunar">음력</button>
+          <button type="button" class="cal-btn"        id="btnLunar" data-cal="lunar">음력</button>
         </div>
-
-        <!-- 윤달 (음력 선택 시만 노출) -->
         <div class="form-row hidden" id="leapRow">
           <div class="form-group">
-            <label>
-              <input type="checkbox" id="isLeap" /> 윤달 여부
-            </label>
+            <label><input type="checkbox" id="isLeap" /> 윤달 여부</label>
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="birthYear">출생 연도</label>
-            <input type="number" id="birthYear" placeholder="예: 1995" min="1900" max="2024" required />
+            <input type="number" id="birthYear" placeholder="예: 1995" min="1900" max="2025" required />
           </div>
           <div class="form-group">
             <label for="birthMonth">월</label>
@@ -48,7 +52,6 @@
             <input type="number" id="birthDay" placeholder="1~31" min="1" max="31" required />
           </div>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="birthHour">출생 시 <span class="optional">(선택)</span></label>
@@ -67,14 +70,59 @@
             </select>
           </div>
         </div>
-
-        <button type="submit" class="btn-generate" id="generateBtn">
-          ✨ 나의 운명 캐릭터 생성
-        </button>
+        <button type="submit" class="btn-generate" id="generateBtn">✨ 나의 운명 캐릭터 생성</button>
       </form>
     </section>
 
-    <!-- 로딩 -->
+    <!-- ── 궁합 폼 ── -->
+    <section class="form-section hidden" id="compatFormSection">
+      <div class="compat-form-wrap">
+
+        <!-- 나 -->
+        <div class="compat-person-block">
+          <div class="compat-person-label person-me">나 👤</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c1Year">연도</label>
+              <input type="number" id="c1Year" placeholder="1995" min="1900" max="2025" />
+            </div>
+            <div class="form-group">
+              <label for="c1Month">월</label>
+              <input type="number" id="c1Month" placeholder="1~12" min="1" max="12" />
+            </div>
+            <div class="form-group">
+              <label for="c1Day">일</label>
+              <input type="number" id="c1Day" placeholder="1~31" min="1" max="31" />
+            </div>
+          </div>
+        </div>
+
+        <div class="compat-vs">⚔️</div>
+
+        <!-- 상대방 -->
+        <div class="compat-person-block">
+          <div class="compat-person-label person-them">상대방 👤</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c2Year">연도</label>
+              <input type="number" id="c2Year" placeholder="1995" min="1900" max="2025" />
+            </div>
+            <div class="form-group">
+              <label for="c2Month">월</label>
+              <input type="number" id="c2Month" placeholder="1~12" min="1" max="12" />
+            </div>
+            <div class="form-group">
+              <label for="c2Day">일</label>
+              <input type="number" id="c2Day" placeholder="1~31" min="1" max="31" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button class="btn-generate" id="compatBtn">💕 궁합 분석하기</button>
+    </section>
+
+    <!-- ── 로딩 ── -->
     <section class="loading-section hidden" id="loadingSection">
       <div class="loading-orb">
         <div class="loading-spinner"></div>
@@ -83,7 +131,7 @@
       <p class="loading-sub">이미지 생성으로 최대 30초 소요될 수 있습니다</p>
     </section>
 
-    <!-- 결과 카드 -->
+    <!-- ── 캐릭터 결과 카드 ── -->
     <section class="result-section hidden" id="resultSection">
       <div class="character-card">
         <div class="card-image-area" id="cardImageArea">
@@ -99,20 +147,15 @@
             <span class="class-badge" id="characterClass"></span>
           </div>
           <p class="destiny-text" id="characterDestiny"></p>
-
           <div class="stats-section">
             <h3>스탯</h3>
-            <div class="radar-wrap">
-              <canvas id="radarChart"></canvas>
-            </div>
+            <div class="radar-wrap"><canvas id="radarChart"></canvas></div>
             <div class="stats-grid" id="statsGrid"></div>
           </div>
-
           <div class="skills-section">
             <h3>스킬</h3>
             <div class="skills-list" id="skillsList"></div>
           </div>
-
           <div class="personality-section">
             <h3>성격</h3>
             <p id="characterPersonality"></p>
@@ -131,16 +174,79 @@
 
       <!-- 액션 버튼 -->
       <div class="result-actions">
-        <button class="btn-share" id="shareBtn">📷 카드 저장</button>
-        <button class="btn-retry" id="retryBtn">↩ 다시 생성하기</button>
+        <button class="btn-share"      id="shareBtn">📷 카드 저장</button>
+        <button class="btn-share-web"  id="shareWebBtn">🔗 공유하기</button>
+        <button class="btn-share-insta" id="shareInstaBtn">📱 스토리 저장</button>
+        <button class="btn-retry"      id="retryBtn">↩ 다시 생성</button>
       </div>
     </section>
 
-    <!-- 에러 -->
-    <section class="error-section hidden" id="errorSection">
-      <p id="errorMessage"></p>
-      <button class="btn-retry" id="errorRetryBtn">다시 시도</button>
+    <!-- ── 궁합 결과 ── -->
+    <section class="result-section hidden" id="compatResultSection">
+      <div class="compat-result-card" id="compatCard">
+
+        <div class="compat-title-area">
+          <p class="compat-grade-label" id="compatGradeLabel"></p>
+          <h2 class="compat-title" id="compatTitle"></h2>
+        </div>
+
+        <!-- 점수 링 -->
+        <div class="compat-score-wrap">
+          <div class="score-ring" id="scoreRing">
+            <div class="score-inner">
+              <span class="score-number" id="compatScore"></span>
+              <span class="score-unit">점</span>
+            </div>
+          </div>
+          <div class="score-stars" id="compatStars"></div>
+        </div>
+
+        <!-- 두 사람 일주 -->
+        <div class="compat-pillars">
+          <div class="compat-pillar">
+            <div class="pillar-role">나</div>
+            <div class="pillar-char" id="compat1Pillar"></div>
+            <div class="pillar-el"   id="compat1El"></div>
+          </div>
+          <div class="compat-heart">💕</div>
+          <div class="compat-pillar">
+            <div class="pillar-role">상대방</div>
+            <div class="pillar-char" id="compat2Pillar"></div>
+            <div class="pillar-el"   id="compat2El"></div>
+          </div>
+        </div>
+
+        <p class="compat-desc"    id="compatDesc"></p>
+        <div class="compat-synergy-box">
+          <span class="synergy-label">⚡ 합동 스킬</span>
+          <p id="compatSynergy"></p>
+        </div>
+        <p class="compat-advice"  id="compatAdvice"></p>
+      </div>
+
+      <!-- 궁합 공유 버튼 -->
+      <div class="result-actions">
+        <button class="btn-share"     id="saveCompatBtn">📷 카드 저장</button>
+        <button class="btn-share-web" id="shareCompatBtn">🔗 공유하기</button>
+        <button class="btn-retry"     id="compatRetryBtn">↩ 다시 보기</button>
+      </div>
     </section>
+
+    <!-- ── 에러 ── -->
+    <section class="error-section hidden" id="errorSection">
+      <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h3 class="error-title">오류가 발생했습니다</h3>
+        <p class="error-message" id="errorMessage"></p>
+        <p class="error-hint"    id="errorHint"></p>
+        <button class="btn-generate" id="errorRetryBtn" style="margin-top:20px;">↩ 다시 시도하기</button>
+      </div>
+    </section>
+
+    <!-- 인스타 스토리용 히든 카드 (9:16 캡처용) -->
+    <div id="storyCardWrap" style="position:fixed;left:-9999px;top:0;width:540px;height:960px;overflow:hidden;">
+      <div id="storyCard" class="story-card"></div>
+    </div>
   </div>
 
   <script src="https://unpkg.com/html-to-image@1.11.13/dist/html-to-image.js"></script>

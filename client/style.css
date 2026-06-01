@@ -347,8 +347,49 @@ input[type="checkbox"] { accent-color: var(--ink); }
   color: var(--ink);
 }
 
-.error-section { text-align: center; padding: 80px 20px; }
-.error-section p { color: #b52020; margin-bottom: 24px; font-size: 14px; }
+.error-section { padding: 60px 0; }
+.error-card {
+  background: var(--surface-card);
+  border: 2px solid #d94040;
+  border-radius: var(--r-card);
+  padding: 48px 36px;
+  text-align: center;
+  box-shadow: 8px 8px 0 rgba(217,64,64,0.15);
+  max-width: 480px;
+  margin: 0 auto;
+}
+.error-icon { font-size: 40px; margin-bottom: 16px; }
+.error-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.error-message {
+  font-size: 14px;
+  color: #c03030;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.error-hint {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── 인라인 폼 에러 ── */
+.field-error {
+  font-size: 12px;
+  color: #c03030;
+  margin-top: 4px;
+  display: none;
+}
+.field-error.visible { display: block; }
+input.invalid, select.invalid {
+  border-color: #d94040 !important;
+  box-shadow: 0 0 0 3px rgba(217,64,64,0.10) !important;
+}
 
 .hidden { display: none !important; }
 
