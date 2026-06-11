@@ -1,0 +1,366 @@
+/* DownloadCard — 고급 캐릭터 카드 (750×auto) */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&display=swap');
+
+.card {
+  display: flex;
+  width: 750px;
+  height: 980px;
+  font-family: 'Noto Serif KR', 'Nanum Myeongjo', Georgia, serif;
+  color: #1a0f00;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #12100e;
+}
+
+/* ── 배경 텍스처 레이어 ── */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(var(--accent-rgb, 120,66,18), 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(0,0,0,0.6) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 왼쪽 텍스트 컬럼 ── */
+.leftCol {
+  flex: 0 0 400px;
+  width: 400px;
+  height: 980px;
+  overflow: hidden;
+  padding: 32px 24px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(160deg, #1e1a14 0%, #16120c 100%);
+  border-right: 1px solid rgba(var(--accent-rgb, 120,66,18), 0.25);
+}
+
+/* ── 오른쪽 이미지 컬럼 ── */
+.rightCol {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.charImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.noImg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.2);
+  font-size: 13px;
+  background: #1a1510;
+}
+
+/* 이미지 위 그라데이션 오버레이 */
+.rightCol::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(22, 18, 12, 0.5) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0,0,0,0.35) 100%
+  );
+  pointer-events: none;
+}
+
+/* 오행 속성 배지 */
+.elementBadge {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.08em;
+  z-index: 3;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ── 상단 헤더 ── */
+.topHeader {
+  margin-bottom: 14px;
+}
+
+.topEyebrow {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  color: var(--accent, #c9a84c);
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.topTitle {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #f0e6c8;
+  line-height: 1.2;
+}
+
+.topSub {
+  font-size: 10px;
+  color: rgba(240, 220, 180, 0.45);
+  margin-top: 4px;
+  letter-spacing: 0.1em;
+  font-style: italic;
+}
+
+/* ── 장식 구분선 ── */
+.dividerOrnament {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
+  opacity: 0.5;
+}
+.dividerOrnament::before,
+.dividerOrnament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent, #c9a84c));
+}
+.dividerOrnament::after {
+  background: linear-gradient(to left, transparent, var(--accent, #c9a84c));
+}
+.dividerOrnamentText {
+  font-size: 10px;
+  color: var(--accent, #c9a84c);
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+}
+
+.thinDivider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(var(--accent-rgb,201,168,76),0.4), transparent);
+  margin: 14px 0;
+}
+
+/* ── 캐릭터 이름 블록 ── */
+.charBlock {
+  margin-bottom: 14px;
+}
+
+.charElement {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--accent, #c9a84c);
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.charName {
+  font-size: 36px;
+  font-weight: 900;
+  color: #f5ead0;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(var(--accent-rgb,201,168,76), 0.3);
+}
+
+.charClassName {
+  font-size: 13px;
+  color: var(--accent, #c9a84c);
+  margin-top: 5px;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.charTitle {
+  font-size: 11px;
+  color: rgba(240, 220, 180, 0.55);
+  margin-top: 3px;
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+
+/* ── 섹션 공통 ── */
+.section {
+  margin-bottom: 14px;
+}
+
+.sectionLabel {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent, #c9a84c);
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sectionLabel::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(var(--accent-rgb,201,168,76), 0.2);
+}
+
+.sectionText {
+  font-size: 11px;
+  color: rgba(240, 220, 180, 0.75);
+  line-height: 1.8;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* ── 성격 태그 ── */
+.personalityTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.personalityTag {
+  font-size: 10px;
+  color: rgba(240, 220, 180, 0.8);
+  background: rgba(var(--accent-rgb,201,168,76), 0.1);
+  border: 1px solid rgba(var(--accent-rgb,201,168,76), 0.2);
+  border-radius: 4px;
+  padding: 3px 9px;
+  letter-spacing: 0.02em;
+}
+
+/* ── 능력 아이템 ── */
+.abilityItem {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+.abilityDot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent, #c9a84c);
+  flex-shrink: 0;
+  margin-top: 5px;
+  opacity: 0.8;
+}
+.abilityContent { display: flex; flex-direction: column; gap: 1px; }
+.abilityName {
+  font-size: 11px;
+  font-weight: 700;
+  color: #f0e6c8;
+  letter-spacing: 0.04em;
+}
+.abilityDesc {
+  font-size: 10px;
+  color: rgba(240, 220, 180, 0.55);
+  line-height: 1.65;
+}
+
+/* ── 스탯 바 ── */
+.statsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.statRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.statLabel {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(240,220,180,0.6);
+  letter-spacing: 0.08em;
+  width: 36px;
+  flex-shrink: 0;
+}
+.statBarBg {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.statBarFill {
+  height: 100%;
+  border-radius: 3px;
+  box-shadow: 0 0 6px currentColor;
+  opacity: 0.9;
+}
+.statVal {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(240,220,180,0.5);
+  width: 22px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── 명언 ── */
+.quotesArea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.quoteBox {
+  position: relative;
+  padding: 10px 14px 10px 20px;
+  background: rgba(var(--accent-rgb,201,168,76), 0.05);
+  border-left: 2px solid rgba(var(--accent-rgb,201,168,76), 0.4);
+  border-radius: 0 6px 6px 0;
+}
+.quoteText {
+  font-size: 10.5px;
+  color: rgba(240,220,180,0.7);
+  line-height: 1.7;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+/* ── 푸터 ── */
+.footer {
+  margin-top: auto;
+  padding-top: 16px;
+}
+.footerDivider {
+  height: 1px;
+  background: linear-gradient(to right, rgba(var(--accent-rgb,201,168,76),0.3), transparent);
+  margin-bottom: 12px;
+}
+.footerMain {
+  font-size: 10px;
+  color: var(--accent, #c9a84c);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.footerSub {
+  font-size: 9px;
+  color: rgba(240,220,180,0.3);
+  margin-top: 4px;
+  letter-spacing: 0.08em;
+}
